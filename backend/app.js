@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const verifyToken = require("./middleware/validateToken");
 
 dotenv.config();
 
