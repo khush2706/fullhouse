@@ -1,4 +1,4 @@
-const User = require("../models/user.model");
+const {model:User} = require("../models/user.model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -27,6 +27,7 @@ const loginService = async (email, password, res) => {
     error: null,
     data: {
       token,
+      username: user.username
     },
   });
 };

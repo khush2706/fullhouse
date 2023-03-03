@@ -1,4 +1,4 @@
-const User = require("../models/user.model");
+const {model:User} = require("../models/user.model");
 
 const registerService = async (email, username, password, res) => {
   // throw error when email already registered
@@ -21,7 +21,7 @@ const registerService = async (email, username, password, res) => {
       username,
       password, // hashed password
     });
-    res.status(201).json({ status: "ok", data: { userId: user._id } });
+    res.status(201).json({ status: "ok" });
   } catch (err) {
     console.log(err);
     res.status(500).json({ err: "Error! Cannot register user" });
