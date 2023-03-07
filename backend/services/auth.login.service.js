@@ -6,7 +6,7 @@ const loginService = async (email, password, res) => {
   const user = await User.findOne({ email: email });
 
   // throw error when email is wrong
-  if (!user) return res.status(400).json({ error: "Email is wrong" });
+  if (!user) return res.status(400).json({ error: "Email not found" });
 
   // check for password correctness
   const validPassword = await bcrypt.compare(password, user.password);
