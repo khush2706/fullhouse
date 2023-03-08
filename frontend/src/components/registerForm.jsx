@@ -9,21 +9,26 @@ import {
   FormButton,
   FormTitle,
   FormSubText,
-} from "./Form.styles";
-import validateLoginForm from "./loginForm.validate";
+} from "../styles/Form.styles";
+import validateRegisterForm from "../validators/registerForm.validate";
 import { Link, useNavigate } from "react-router-dom";
 
-const LoginForm = ({ setToken, setUser }) => {
+const RegisterForm = () => {
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPass, setConfirmPass] = useState("");
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const resultError = validateLoginForm({
+    const resultError = validateRegisterForm({
+      username,
       email,
       password,
+      confirmPass,
     });
 
     if (resultError !== null) {
@@ -39,22 +44,25 @@ const LoginForm = ({ setToken, setUser }) => {
       headers: myHeaders,
       body: JSON.stringify({
         email: email,
+        username: username,
         password: password,
       }),
     };
 
-    fetch("http://localhost:1337/api/user/login", requestOptions)
+    fetch("http://localhost:1337/api/user/register", requestOptions)
       .then(async (res) => {
         let data = await res.json();
         if (!res.ok) throw new Error(data.error);
         else return data;
       })
-      .then((res) => {
-        localStorage.setItem("token", res.data.token);
-        localStorage.setItem("username", res.data.username);
-        setToken(res.data.token);
-        setUser({ username: res.data.username });
-        navigate("/dashboard");
+      .then((data) => {
+        setUsername("");
+        setEmail("");
+        setPassword("");
+        setConfirmPass("");
+        setError(null);
+        setSuccess("Application was submitted!");
+        navigate("/login");
       })
       .catch((error) => {
         setError(error.message);
@@ -74,16 +82,28 @@ const LoginForm = ({ setToken, setUser }) => {
       type: "email",
     },
     {
+      label: "Username",
+      value: username,
+      onChange: (e) => setUsername(e.target.value),
+      type: "text",
+    },
+    {
       label: "Password",
       value: password,
       onChange: (e) => setPassword(e.target.value),
+      type: "password",
+    },
+    {
+      label: "Confirm Password",
+      value: confirmPass,
+      onChange: (e) => setConfirmPass(e.target.value),
       type: "password",
     },
   ];
   return (
     <FormSection>
       <FormColumn>
-        <FormTitle>Welcome</FormTitle>
+        <FormTitle>Register</FormTitle>
         <FormWrapper onSubmit={handleSubmit}>
           {formData.map((el, index) => (
             <FormInputRow key={index}>
@@ -108,12 +128,21 @@ const LoginForm = ({ setToken, setUser }) => {
             {error}
           </FormMessage>
         )}
+        {success && (
+          <FormMessage
+            variants={messageVariants}
+            initial="hidden"
+            animate="animate"
+          >
+            {success}
+          </FormMessage>
+        )}
       </FormColumn>
       <FormSubText>
-        Do not have an account? <Link to="/register">Register Instead</Link>
+        Already have an account? <Link to="/login">Login Instead</Link>
       </FormSubText>
     </FormSection>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

@@ -8,22 +8,14 @@ const joinRoomService = async (req, res) => {
   const user = await User.findOne({ username: username });
   try {
     const room = await Room.findOne({ _id: id });
-    if (room.members.length < 8) {
-      const updatedRoom = await Room.findOneAndUpdate(
-        { _id: id },
-        { $push: { members: user } },
-        { returnOriginal: true }
-      );
-      let members = updatedRoom.members.map(({ username }) => username);
+    if (
+      room.members.length < 8
+      // &&
+      // !room.members.find((members) => members.username === username)
+    ) {
+      await Room.findOneAndUpdate({ _id: id }, { $push: { members: user } });
       res.status(200).json({
         status: "ok",
-        data: {
-          roomId: updatedRoom._id,
-          name: updatedRoom.name,
-          createdBy: updatedRoom.createdBy.username,
-          members,
-          queue: updatedRoom.queue,
-        },
       });
     } else {
       res.status(500).json({ err: "Room is at capacity" });

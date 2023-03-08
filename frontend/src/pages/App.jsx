@@ -1,12 +1,12 @@
 import { useState } from "react";
 import io from "socket.io-client";
 import Home from "./Home/Home";
-import RegisterForm from "../components/Form/registerForm";
-import LoginForm from "../components/Form/loginForm";
+import RegisterForm from "../components/registerForm";
+import LoginForm from "../components/loginForm";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import GlobalStyle from "../globalStyles";
+import GlobalStyle from "../styles/globalStyles";
 import Dashboard from "./Dashboard";
-import ProtectedRoute from "./ProtectedRoute";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 // const socket = io("http://localhost:1337"); // Add this -- our server will run on port 1337, so we connect to it from here
 

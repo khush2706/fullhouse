@@ -9,26 +9,21 @@ import {
   FormButton,
   FormTitle,
   FormSubText,
-} from "./Form.styles";
-import validateRegisterForm from "./registerForm.validate";
+} from "../styles/Form.styles";
+import validateLoginForm from "../validators/loginForm.validate";
 import { Link, useNavigate } from "react-router-dom";
 
-const RegisterForm = () => {
-  const [username, setUsername] = useState("");
+const LoginForm = ({ setToken, setUser }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPass, setConfirmPass] = useState("");
   const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const resultError = validateRegisterForm({
-      username,
+    const resultError = validateLoginForm({
       email,
       password,
-      confirmPass,
     });
 
     if (resultError !== null) {
@@ -44,25 +39,22 @@ const RegisterForm = () => {
       headers: myHeaders,
       body: JSON.stringify({
         email: email,
-        username: username,
         password: password,
       }),
     };
 
-    fetch("http://localhost:1337/api/user/register", requestOptions)
+    fetch("http://localhost:1337/api/user/login", requestOptions)
       .then(async (res) => {
         let data = await res.json();
         if (!res.ok) throw new Error(data.error);
         else return data;
       })
-      .then((data) => {
-        setUsername("");
-        setEmail("");
-        setPassword("");
-        setConfirmPass("");
-        setError(null);
-        setSuccess("Application was submitted!");
-        navigate("/login");
+      .then((res) => {
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("username", res.data.username);
+        setToken(res.data.token);
+        setUser({ username: res.data.username });
+        navigate("/dashboard");
       })
       .catch((error) => {
         setError(error.message);
@@ -82,28 +74,16 @@ const RegisterForm = () => {
       type: "email",
     },
     {
-      label: "Username",
-      value: username,
-      onChange: (e) => setUsername(e.target.value),
-      type: "text",
-    },
-    {
       label: "Password",
       value: password,
       onChange: (e) => setPassword(e.target.value),
-      type: "password",
-    },
-    {
-      label: "Confirm Password",
-      value: confirmPass,
-      onChange: (e) => setConfirmPass(e.target.value),
       type: "password",
     },
   ];
   return (
     <FormSection>
       <FormColumn>
-        <FormTitle>Register</FormTitle>
+        <FormTitle>Welcome</FormTitle>
         <FormWrapper onSubmit={handleSubmit}>
           {formData.map((el, index) => (
             <FormInputRow key={index}>
@@ -128,21 +108,12 @@ const RegisterForm = () => {
             {error}
           </FormMessage>
         )}
-        {success && (
-          <FormMessage
-            variants={messageVariants}
-            initial="hidden"
-            animate="animate"
-          >
-            {success}
-          </FormMessage>
-        )}
       </FormColumn>
       <FormSubText>
-        Already have an account? <Link to="/login">Login Instead</Link>
+        Do not have an account? <Link to="/register">Register Instead</Link>
       </FormSubText>
     </FormSection>
   );
 };
 
-export default RegisterForm;
+export default LoginForm;
