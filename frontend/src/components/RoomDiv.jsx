@@ -6,15 +6,47 @@ import {
   MembersDiv,
   RoomCard,
 } from "../styles/RoomDiv.style";
+import { useNavigate } from "react-router-dom";
 
-const RoomDiv = ({
-  name,
-  members,
-  description,
-  creator,
-  room_id,
-  joinRoom,
-}) => {
+const RoomDiv = ({ name, members, description, creator, room_id }) => {
+  const navigate = useNavigate();
+
+  function joinRoom(e) {
+    let id = e.target.getAttribute("data-id");
+    const token = localStorage.getItem("token");
+    const user = {
+      username: localStorage.getItem("username"),
+    };
+
+    let myHeaders = new Headers();
+    myHeaders.append("auth-token", token);
+    myHeaders.append("Content-Type", "application/json");
+
+    let requestOptions = {
+      method: "PATCH",
+      headers: myHeaders,
+      body: JSON.stringify({
+        username: user.username,
+        roomId: id,
+      }),
+    };
+
+    fetch("http://localhost:1337/api/dashboard/join", requestOptions)
+      .then((res) => {
+        if (!res.ok)
+          return res.json().then((data) => {
+            throw new Error(data.err);
+          });
+        else return res.json();
+      })
+      .then((res) => {
+        navigate(`/dashboard/${id}`);
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  }
+
   return (
     <RoomCard>
       <CardHeader>
@@ -27,10 +59,10 @@ const RoomDiv = ({
             viewBox="0 0 24 24"
             fill="none"
             stroke="white"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="feather feather-users"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="feather feather-users"
             style={{ marginRight: 10 }}
           >
             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>

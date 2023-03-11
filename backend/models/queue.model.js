@@ -4,7 +4,8 @@ const {userSchema} = require("./user.model");
 
 const queueSchema = new mongoose.Schema(
   {
-    currentTrackIndex: { type: Number, required: true, default: 0 },
+    currentTrackIndex: { type: Number },
+    songStartTime: { type: Date },
     songs: [songSchema],
     members: [userSchema]
   },

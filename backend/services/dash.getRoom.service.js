@@ -12,14 +12,14 @@ const getRoomService = async (req, res) => {
         data: {
           roomId: room._id,
           name: room.name,
-          createdBy: room.createdBy.username,
+          createdBy: room.createdBy,
           members,
           queue: room.queue,
         },
       });
     } catch (err) {
-    console.log(err);
-    res.status(500).json({ err: err });
+      console.log(err)
+    res.status(500).json({ err: "Room not found" });
   }
 };
 

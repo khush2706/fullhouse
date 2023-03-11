@@ -12,7 +12,7 @@ const registerService = async (email, username, password, res) => {
   const isUsernameExist = await User.findOne({ username: username });
 
   if (isUsernameExist) {
-    return res.status(400).json({ error: "Username already exists" });
+    return res.status(400).json({ err: "Username already exists" });
   }
 
   try {

@@ -4,7 +4,7 @@ const { createRoomService } = require("../services/dash.createRoom.service")
 const createRoomValidation = async (req, res) => {
     const schema = Joi.object({
       name: Joi.string().min(6).max(100).required(),
-      description: Joi.string().min(6).max(255),
+      description: Joi.string().min(6).max(255).required(),
       isPublic: Joi.bool(),
       username: Joi.string().min(6).max(255).required(),
     });

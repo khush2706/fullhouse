@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GlobalStyle from "../styles/globalStyles";
 import Dashboard from "./Dashboard";
 import ProtectedRoute from "../components/ProtectedRoute";
+import CreateRoomModal from "../components/createRoomModal";
 
 // const socket = io("http://localhost:1337"); // Add this -- our server will run on port 1337, so we connect to it from here
 
@@ -35,6 +36,7 @@ function App() {
           }
         />
         <Route path="dashboard/:roomId" element={<div>This is a room</div>} />
+        <Route path="create" element={<CreateRoomModal />} />
       </Routes>
     </BrowserRouter>
   );

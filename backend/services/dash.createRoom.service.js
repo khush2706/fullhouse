@@ -11,8 +11,8 @@ const createRoomService = async (req, res) => {
     const newRoom = await Room.create({
       name: name,
       description: description,
-      isPublic: isPublic == undefined ? true : isPublic,
-      createdBy: user,
+      isPublic: isPublic,
+      createdBy: username,
       members: [user],
       queue: queueId,
     });
@@ -20,14 +20,11 @@ const createRoomService = async (req, res) => {
       status: "ok",
       data: {
         roomId: newRoom._id,
-        name: newRoom.name,
-        createdBy: newRoom.createdBy.username,
-        queue: queueId,
       },
     });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ err: err });
+    res.status(500).json({ err: "Error! Cannot create room" });
   }
 };
 

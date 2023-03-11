@@ -36,6 +36,7 @@ export const FormColumn = styled.div`
   border-radius: 10px;
   flex-direction: column;
   overflow: hidden;
+  z-index: 2;
 `;
 
 export const FormWrapper = styled.form`

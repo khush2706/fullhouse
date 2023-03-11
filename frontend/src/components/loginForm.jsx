@@ -31,10 +31,10 @@ const LoginForm = ({ setToken, setUser }) => {
       return;
     }
 
-    var myHeaders = new Headers();
+    let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    var requestOptions = {
+    let requestOptions = {
       method: "POST",
       headers: myHeaders,
       body: JSON.stringify({
@@ -44,10 +44,12 @@ const LoginForm = ({ setToken, setUser }) => {
     };
 
     fetch("http://localhost:1337/api/user/login", requestOptions)
-      .then(async (res) => {
-        let data = await res.json();
-        if (!res.ok) throw new Error(data.error);
-        else return data;
+      .then((res) => {
+        if (!res.ok)
+          return res.json().then((data) => {
+            throw new Error(data.err);
+          });
+        else return res.json();
       })
       .then((res) => {
         localStorage.setItem("token", res.data.token);

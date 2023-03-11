@@ -8,6 +8,7 @@ const joinRoomService = async (req, res) => {
   const user = await User.findOne({ username: username });
   try {
     const room = await Room.findOne({ _id: id });
+    if(room.length===0) throw new Error("Room not found");
     if (
       room.members.length < 8
       // &&
@@ -18,11 +19,11 @@ const joinRoomService = async (req, res) => {
         status: "ok",
       });
     } else {
-      res.status(500).json({ err: "Room is at capacity" });
+      throw new Error("Room is at capacity")
     }
   } catch (err) {
     console.log(err);
-    res.status(500).json({ err: err });
+    res.status(500).json({ err: err.message });
   }
 };
 

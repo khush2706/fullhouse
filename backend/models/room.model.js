@@ -5,9 +5,9 @@ const Queue = require("./queue.model")
 const roomSchema = new mongoose.Schema(
   {
     name: { type: String, required: true, min: 6, max: 100 },
-    description: { type: String },
+    description: { type: String, required: true, min: 6, max: 255 },
     isPublic: { type: Boolean, default: true, required: true },
-    createdBy: { type: userSchema, required: true },
+    createdBy: { type: String, required: true },
     members: [userSchema],
     queue: { type: mongoose.Schema.Types.ObjectId, ref: Queue }
   },
