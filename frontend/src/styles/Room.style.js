@@ -1,0 +1,73 @@
+import styled from "styled-components";
+import { DashboardWrapper, DashboardContainer } from "./Dashboard.styles";
+
+export const RoomWrapper = styled(DashboardWrapper)`
+  padding: 0;
+`;
+
+export const RoomContainer = styled(DashboardContainer)`
+  padding: 0;
+`;
+
+export const MessageBox = styled.div`
+  background: rgb(18 21 18 / 43%);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(87, 83, 83, 0.175);
+  width: 30%;
+  position: absolute;
+  right: 0;
+  bottom: 80px;
+  height: 70%;
+  border-radius: 10px 0 0 10px;
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
+  padding: 10px 15px;
+`;
+
+export const MessageBoxHeader = styled.div`
+  width: 100%;
+  color: white;
+  font-size: 24px;
+  padding: 0.5em 0.2em;
+  font-weight: 500;
+`;
+
+export const MessageBoxBody = styled.div`
+  height: 80%;
+  overflow: auto;
+  width: 100%;
+  color: white;
+  font-size: 18px;
+  padding: 20px 0.2em;
+`;
+
+export const MessageInput = styled.input`
+  outline: none;
+  border: none;
+  width: 85%;
+  height: 8%;
+  border-radius: 8px;
+  background: rgb(255 255 255 / 8%);
+  box-shadow: 0 0 0 0.2rem rgb(37 205 152 / 30%);
+  padding: 1rem;
+  color: rgb(61 234 179 / 85%);
+  font-size: 1rem;
+  font-weight: 400;
+  &:focus {
+    display: inline-block;
+    box-shadow: 0 0 0 0.2rem rgb(37 205 152 / 30%);
+    backdrop-filter: blur(12rem);
+  }
+  &::placeholder {
+    color: rgb(35 195 144 / 85%);
+    font-weight: 100;
+    font-size: 1rem;
+  }
+`;
+export const SendMessage = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`

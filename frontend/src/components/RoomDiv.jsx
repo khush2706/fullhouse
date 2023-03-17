@@ -7,16 +7,17 @@ import {
   RoomCard,
 } from "../styles/RoomDiv.style";
 import { useNavigate } from "react-router-dom";
+import { SocketContext } from "../contexts/socket";
+import { useContext } from "react";
 
 const RoomDiv = ({ name, members, description, creator, room_id }) => {
   const navigate = useNavigate();
+  const socket = useContext(SocketContext);
 
   function joinRoom(e) {
     let id = e.target.getAttribute("data-id");
     const token = localStorage.getItem("token");
-    const user = {
-      username: localStorage.getItem("username"),
-    };
+    const username = localStorage.getItem("username");
 
     let myHeaders = new Headers();
     myHeaders.append("auth-token", token);
@@ -26,7 +27,7 @@ const RoomDiv = ({ name, members, description, creator, room_id }) => {
       method: "PATCH",
       headers: myHeaders,
       body: JSON.stringify({
-        username: user.username,
+        username: username,
         roomId: id,
       }),
     };
@@ -38,6 +39,9 @@ const RoomDiv = ({ name, members, description, creator, room_id }) => {
             throw new Error(data.err);
           });
         else return res.json();
+      })
+      .then((res)=>{
+        socket.emit("join_room", { roomId: id, username: username });
       })
       .then((res) => {
         navigate(`/dashboard/${id}`);

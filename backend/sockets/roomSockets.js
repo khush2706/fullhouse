@@ -1,26 +1,31 @@
-const joinRoom = (io) => {
-  return io.on("connection", (socket) => {
-    socket.on("join_room", (room_id, username) => {
+const joinRoom = (socket) => {
+    socket.on("join_room", ({roomId, username}) => {
       console.log("joined");
-      socket.join(room_id);
-      socket.to(room_id).emit("user_joined", {
+      socket.join(roomId);
+      socket.to(roomId).emit("user_joined", {
         username: username,
         message: `${username} has joined the room`,
       });
     });
-  });
 };
 
-const createRoom = (io) => {
-  return io.on("connection", (socket) => {
-    socket.on("create_room", (room_id, room_name, room_description) => {
+const createRoom = (socket) => {
+    socket.on("create_room", ({roomId, room_name, room_description}) => {
       io.emit("room_created", {
-        room_id,
+        roomId,
         room_name,
         room_description,
       });
     });
-  });
 };
+
+const sendMessage = (socket, io) => {
+    socket.on("send_message", ({roomId, user, msg}) => {
+      io.in(roomId).emit("receive_message", {
+        user,
+        msg
+      });
+    });
+}
  
-module.exports = { joinRoom, createRoom }
+module.exports = { joinRoom, createRoom, sendMessage }
