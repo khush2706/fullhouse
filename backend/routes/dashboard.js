@@ -26,3 +26,7 @@ router.get("/", (req,res) => {
 router.get("/:roomId", (req,res) => {
   getRoomService(req, res);
 })
+
+// router.patch("/leave", (req, res) => {
+
+// })

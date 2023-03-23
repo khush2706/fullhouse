@@ -1,20 +1,11 @@
 import styled from "styled-components";
-import { DashboardWrapper, DashboardContainer } from "./Dashboard.styles";
-
-export const RoomWrapper = styled(DashboardWrapper)`
-  padding: 0;
-`;
-
-export const RoomContainer = styled(DashboardContainer)`
-  padding: 0;
-`;
 
 export const MessageBox = styled.div`
-  background: rgb(18 21 18 / 43%);
+  background: rgb(15 16 17 / 43%);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(87, 83, 83, 0.175);
-  width: 30%;
+  width: 28%;
   position: absolute;
   right: 0;
   bottom: 80px;
@@ -49,7 +40,7 @@ export const MessageInput = styled.input`
   width: 85%;
   height: 8%;
   border-radius: 8px;
-  background: rgb(255 255 255 / 8%);
+  background: rgb(24 26 27 / 8%);
   box-shadow: 0 0 0 0.2rem rgb(37 205 152 / 30%);
   padding: 1rem;
   color: rgb(61 234 179 / 85%);
