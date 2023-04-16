@@ -49,3 +49,7 @@ export const RoomId = styled.div`
   letter-spacing: 1px;
   margin-top: 10px;
 `;
+
+export const WideButton = styled(Button)`
+  width: 500px;
+`

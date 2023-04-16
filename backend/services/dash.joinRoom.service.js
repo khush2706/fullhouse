@@ -4,7 +4,7 @@ var mongoose = require("mongoose");
 
 const joinRoomService = async (req, res) => {
   const { username, roomId } = req.body;
-  var id = mongoose.Types.ObjectId(roomId);
+  let id = mongoose.Types.ObjectId(roomId);
   const user = await User.findOne({ username: username });
   try {
     const room = await Room.findOne({ _id: id });

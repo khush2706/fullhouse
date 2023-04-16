@@ -21,13 +21,13 @@ import Queue from "./queue";
 const Playlist = ({ roomId }) => {
   const [upVoted, setUpVoted] = useState(false);
   const [downVoted, setDownVoted] = useState(false);
-  const [playing, setPlaying] = useState(true);
-	const [queueOpen, setQueueOpen] = useState(false);
+  const [playing, setPlaying] = useState(false);
+  const [queueOpen, setQueueOpen] = useState(true);
   const socket = useContext(SocketContext);
 
   return (
     <>
-		{queueOpen && <Queue />}
+      {queueOpen && <Queue />}
       <PlaylistBar>
         <SongIdentifierWrapper>
           <Music />
@@ -88,7 +88,7 @@ const Playlist = ({ roomId }) => {
             justifyContent: "center",
           }}
         >
-          <PlaylistIcon handleClick={()=>setQueueOpen(!queueOpen)} />
+          <PlaylistIcon handleClick={() => setQueueOpen(!queueOpen)} />
           <SoundIcon />
           <ProgressBar type="range" min="0" max="100" default="0"></ProgressBar>
         </div>

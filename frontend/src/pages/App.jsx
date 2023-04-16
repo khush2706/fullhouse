@@ -8,6 +8,8 @@ import Dashboard from "./Dashboard";
 import ProtectedRoute from "../components/ProtectedRoute";
 import Room from "./Room";
 import { SocketContext, socket } from "../contexts/socket";
+import { QueueIdProvider } from "../contexts/queue";
+
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -19,32 +21,36 @@ function App() {
     <>
       <GlobalStyle />
       <SocketContext.Provider value={socket}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="register" element={<RegisterForm />} />
-            <Route
-              path="login"
-              element={<LoginForm setToken={setToken} setUser={setUser} />}
-            />
-            <Route
-              path="dashboard"
-              element={
-                <ProtectedRoute token={token}>
-                  <Dashboard user={user} token={token} />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="dashboard/:roomId"
-              element={
-                <ProtectedRoute token={token}>
-                  <Room />
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
-        </BrowserRouter>
+        {/* <PlaylistProvider> */}
+        <QueueIdProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="register" element={<RegisterForm />} />
+              <Route
+                path="login"
+                element={<LoginForm setToken={setToken} setUser={setUser} />}
+              />
+              <Route
+                path="dashboard"
+                element={
+                  <ProtectedRoute token={token}>
+                    <Dashboard user={user} token={token} />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="dashboard/:roomId"
+                element={
+                  <ProtectedRoute token={token}>
+                    <Room />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+          </BrowserRouter>
+          </QueueIdProvider>
+        {/* </PlaylistProvider> */}
       </SocketContext.Provider>
     </>
   );

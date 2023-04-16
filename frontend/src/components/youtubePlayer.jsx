@@ -42,7 +42,7 @@ const YouTubeVideo = ({ roomId }) => {
   }, [socket]);
 
   const loadVideo = () => {
-    const id = "AaGK-fj-BAM";
+    const id = "";
 
     // the Player object is created uniquely based on the id in props
     player = new window.YT.Player(`youtube-player`, {
@@ -50,7 +50,7 @@ const YouTubeVideo = ({ roomId }) => {
       height: "390",
       width: "640",
       playerVars: {
-        autoplay: 1,
+        autoplay: 0,
         controls: 0,
         disablekb: 1,
         enablejsapi: 1,
