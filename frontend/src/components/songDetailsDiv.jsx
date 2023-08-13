@@ -8,6 +8,11 @@ import {
 } from "../styles/SongDetailsDiv.styles";
 
 const SongDetailsDiv = ({ thumbnailUrl, title, channelName, dataId }) => {
+
+  const handleClick = () => {
+    
+  }
+
   return (
     <Wrapper>
       <div style={{ display: "flex" }}>

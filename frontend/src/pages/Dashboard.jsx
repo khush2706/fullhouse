@@ -46,7 +46,7 @@ const Dashboard = ({ user, token }) => {
         <DashboardContainer>
           <Navbar />
           <DashboardHeader>
-            ROOMS
+            Dashboard
             <div>
               <CreateButton onClick={() => setOpenCreateRoomModal(true)}>
                 Create Room
@@ -69,7 +69,10 @@ const Dashboard = ({ user, token }) => {
                 );
               })
             ) : (
-              <div>{getRoomsError}</div>
+              <>
+              {/* <div>{getRoomsError}</div> */}
+              <div>Welcome to the dashboard</div>
+              </>
             )}
           </RoomsWrapper>
         </DashboardContainer>
