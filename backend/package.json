@@ -20,6 +20,7 @@
     "jsonwebtoken": "^9.0.0",
     "mongodb": "^5.0.1",
     "mongoose": "^6.9.3",
+    "redis": "^4.6.7",
     "socket.io": "^4.6.1"
   },
   "devDependencies": {

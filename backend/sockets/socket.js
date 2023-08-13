@@ -3,7 +3,6 @@ const { playVideo, pauseVideo, songStarted } = require("./playlistSockets");
 
 const socketHandler = (io) => {
   return io.on("connection", (socket) => {
-    console.log("testing");
     console.log(`User connected ${socket.id}`);
     joinRoom(socket);
     createRoom(socket);

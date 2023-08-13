@@ -1,20 +1,31 @@
+const { redisClient } = require("./redis.config");
 const express = require("express");
 const app = express();
-http = require('http');
+http = require("http");
 const server = http.createServer(app);
 const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const verifyToken = require("./middleware/validateToken");
 const dashboardRoutes = require("./routes/dashboard");
-const { Server } = require('socket.io');
+const { Server } = require("socket.io");
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:5173',
-    methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PATCH", "PUT", "DELETE"],
   },
 });
-const { socketHandler } = require('./sockets/socket');
+
+redisClient.on("connect", () => {
+  (async () => {
+    console.log("Connected to our redis instance!");
+    redisClient.set("Greatest Basketball Player", "Lebron James");
+
+    const data = await redisClient.get("Greatest Basketball Player");
+    console.log({ data });
+  })();
+});
+const { socketHandler } = require("./sockets/socket");
 
 dotenv.config();
 
@@ -30,10 +41,9 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    console.log("Connection Successful!");
+    console.log("Mongo Connection Successful!");
   })
   .catch((err) => console.error(err));
-
 
 //import routes
 const authRoutes = require("./routes/auth");
