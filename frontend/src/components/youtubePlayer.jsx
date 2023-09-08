@@ -1,89 +1,82 @@
-import { useEffect, useContext } from "react";
-import { SocketContext } from "../contexts/socket";
+import { useEffect, useContext, useRef } from 'react'
+import { SocketContext } from '../contexts/socket'
+import VideoIdContext from '../contexts/videoId'
+import YouTube from 'react-youtube'
 
 const YouTubeVideo = ({ roomId }) => {
-  let player;
-  const socket = useContext(SocketContext);
-  let count = 0;
+  const socket = useContext(SocketContext)
+  const { videoId, updateVideoId } = useContext(VideoIdContext)
+  let count = 0
+  const ytplayer = useRef()
 
   useEffect(() => {
-    // On mount, check to see if the API script is already loaded
-    if (!window.YT) {
-      // If not, load the script asynchronously
-      const tag = document.createElement("script");
-      tag.src = "https://www.youtube.com/iframe_api";
+    socket.on('play_video', () => {
+      console.log('playing')
+      ytplayer.current?.playVideo()
+    })
 
-      // onYouTubeIframeAPIReady will load the video after the script is loaded
-      window.onYouTubeIframeAPIReady = loadVideo;
+    socket.on('pause_video', () => {
+      console.log('pausing')
+      ytplayer.current?.pauseVideo()
+    })
 
-      const firstScriptTag = document.getElementsByTagName("script")[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    } else {
-      // If script is already there, load the video directly
-      loadVideo();
-    }
-  }, []);
-
-  useEffect(() => {
-    socket.on("play_video", () => {
-      console.log("playing");
-      player.playVideo();
-    });
-
-    socket.on("pause_video", () => {
-      console.log("pausing");
-      player.pauseVideo();
-    });
-
-    socket.on("video_seek", () => {
-      console.log("seeking");
+    socket.on('video_seek', () => {
+      console.log('seeking')
       // player.seekTo(30, true);
-    });
-  }, [socket]);
+    })
+  }, [socket])
 
-  const loadVideo = () => {
-    const id = "";
-
-    // the Player object is created uniquely based on the id in props
-    player = new window.YT.Player(`youtube-player`, {
-      videoId: id,
-      height: "390",
-      width: "640",
-      playerVars: {
-        autoplay: 0,
-        controls: 0,
-        disablekb: 1,
-        enablejsapi: 1,
-      },
-      events: {
-        onReady: onPlayerReady,
-        onStateChange: onPlayerStateChange,
-      },
-    });
-  };
+  useEffect(() => {
+    if (ytplayer.current) {
+      console.log({ ytplayer: ytplayer.current, videoId })
+      try {
+        ytplayer.current?.loadVideoById(videoId)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+  }, [videoId])
 
   const onPlayerReady = (event) => {
-    player.playVideo();
+    ytplayer.current = event.target
+    console.log({ ytplayer: ytplayer.current })
+    // event.target?.playVideo();
     // player.seekTo(30, true);
-  };
+  }
 
   const onPlayerStateChange = (event) => {
-    count++;
+    count++
     if (event.data === 1) {
-      socket.emit("play_video", { roomId: roomId });
+      socket.emit('play_video', { roomId: roomId })
       if (count === 1) {
-        socket.emit("song_started", { roomId: roomId });
+        socket.emit('song_started', { roomId: roomId })
       }
     } else if (event.data === 2) {
-      socket.emit("pause_video", { roomId: roomId });
+      socket.emit('pause_video', { roomId: roomId })
     }
-  };
+  }
+
+  let opts = {
+    height: '390',
+    width: '640',
+    playerVars: {
+      autoplay: 1,
+      controls: 0,
+      disablekb: 1,
+      enablejsapi: 1
+    }
+  }
 
   return (
     <div>
-      <div id="youtube-player" />
+      <YouTube
+        videoId={videoId}
+        opts={opts}
+        onReady={onPlayerReady}
+        onStateChange={onPlayerStateChange}
+      />
     </div>
-  );
-};
+  )
+}
 
-export default YouTubeVideo;
+export default YouTubeVideo

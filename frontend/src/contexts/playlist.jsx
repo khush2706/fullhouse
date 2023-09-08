@@ -1,13 +1,13 @@
-import { createContext, useState } from "react";
+import { createContext, useState } from 'react'
 
-const PlaylistContext = createContext();
+const PlaylistContext = createContext()
 
-export default PlaylistContext;
+export default PlaylistContext
 
 export function PlaylistProvider({ children }) {
   const [playlistData, setPlaylistData] = useState(localStorage.getItem('playlist-data'))
 
-  const updatePlaylistData  = (playlistData) => {
+  const updatePlaylistData = (playlistData) => {
     setPlaylistData(playlistData)
   }
   return (

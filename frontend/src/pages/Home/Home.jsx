@@ -1,5 +1,5 @@
-import styles from "./Home.module.css";
-import { Link } from "react-router-dom";
+import styles from './Home.module.css'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
   return (
@@ -36,7 +36,7 @@ const Home = () => {
         </Link>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

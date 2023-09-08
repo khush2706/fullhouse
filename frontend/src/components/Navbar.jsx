@@ -1,12 +1,12 @@
-import { Nav, Logo } from "../styles/Navbar.styles";
-import { useNavigate } from "react-router-dom";
+import { Nav, Logo } from '../styles/Navbar.styles'
+import { useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const Logout = () => {
-    localStorage.clear();
-    navigate("/");
-  };
+    localStorage.clear()
+    navigate('/')
+  }
   return (
     <Nav>
       {/* <Logo>FULLHOUSE</Logo> */}
@@ -16,9 +16,9 @@ const Navbar = () => {
         height="40"
         viewBox="0 0 24 24"
         style={{
-          fill: "#fff",
-          "--darkreader-inline-fill": "#fff",
-          cursor: "pointer",
+          fill: '#fff',
+          '--darkreader-inline-fill': '#fff',
+          cursor: 'pointer'
         }}
         onClick={Logout}
       >
@@ -26,7 +26,7 @@ const Navbar = () => {
         <path d="M12 6a3.91 3.91 0 0 0-4 4 3.91 3.91 0 0 0 4 4 3.91 3.91 0 0 0 4-4 3.91 3.91 0 0 0-4-4zm0 6a1.91 1.91 0 0 1-2-2 1.91 1.91 0 0 1 2-2 1.91 1.91 0 0 1 2 2 1.91 1.91 0 0 1-2 2z"></path>
       </svg>
     </Nav>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

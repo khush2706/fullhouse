@@ -4,51 +4,51 @@ import {
   CardHeader,
   JoinButton,
   MembersDiv,
-  RoomCard,
-} from "../styles/RoomDiv.style";
-import { useNavigate } from "react-router-dom";
-import { SocketContext } from "../contexts/socket";
-import { useContext } from "react";
+  RoomCard
+} from '../styles/RoomDiv.style'
+import { useNavigate } from 'react-router-dom'
+import { SocketContext } from '../contexts/socket'
+import { useContext } from 'react'
 
 const RoomDiv = ({ name, members, description, creator, room_id }) => {
-  const navigate = useNavigate();
-  const socket = useContext(SocketContext);
+  const navigate = useNavigate()
+  const socket = useContext(SocketContext)
 
   function joinRoom(e) {
-    let id = e.target.getAttribute("data-id");
-    const token = localStorage.getItem("token");
-    const username = localStorage.getItem("username");
+    let id = e.target.getAttribute('data-id')
+    const token = localStorage.getItem('token')
+    const username = localStorage.getItem('username')
 
-    let myHeaders = new Headers();
-    myHeaders.append("auth-token", token);
-    myHeaders.append("Content-Type", "application/json");
+    let myHeaders = new Headers()
+    myHeaders.append('auth-token', token)
+    myHeaders.append('Content-Type', 'application/json')
 
     let requestOptions = {
-      method: "PATCH",
+      method: 'PATCH',
       headers: myHeaders,
       body: JSON.stringify({
         username: username,
-        roomId: id,
-      }),
-    };
+        roomId: id
+      })
+    }
 
-    fetch("http://localhost:1337/api/dashboard/join", requestOptions)
+    fetch('http://localhost:1337/api/dashboard/join', requestOptions)
       .then((res) => {
         if (!res.ok)
           return res.json().then((data) => {
-            throw new Error(data.err);
-          });
-        else return res.json();
-      })
-      .then((res)=>{
-        socket.emit("join_room", { roomId: id, username: username });
+            throw new Error(data.err)
+          })
+        else return res.json()
       })
       .then((res) => {
-        navigate(`/dashboard/${id}`);
+        socket.emit('join_room', { roomId: id, username: username })
+      })
+      .then((res) => {
+        navigate(`/dashboard/${id}`)
       })
       .catch((error) => {
-        alert(error.message);
-      });
+        alert(error.message)
+      })
   }
 
   return (
@@ -83,7 +83,7 @@ const RoomDiv = ({ name, members, description, creator, room_id }) => {
         Join Room
       </JoinButton>
     </RoomCard>
-  );
-};
+  )
+}
 
-export default RoomDiv;
+export default RoomDiv

@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { motion } from "framer-motion";
+import styled from 'styled-components'
+import { motion } from 'framer-motion'
 
 export const FormSection = styled.div`
   background-image: url(../../resources/images/circle-bg.svg);
@@ -11,7 +11,7 @@ export const FormSection = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-`;
+`
 
 export const FormTitle = styled.h1`
   margin-bottom: 28px;
@@ -20,7 +20,7 @@ export const FormTitle = styled.h1`
   font-weight: 500;
   color: white;
   letter-spacing: 0.1em;
-`;
+`
 
 export const FormColumn = styled.div`
   padding: 50px 30px;
@@ -37,20 +37,20 @@ export const FormColumn = styled.div`
   flex-direction: column;
   overflow: hidden;
   z-index: 2;
-`;
+`
 
 export const FormWrapper = styled.form`
   padding-top: 0;
   width: 100%;
   position: relative;
-`;
+`
 
 export const FormMessage = styled(motion.div)`
-  color: ${({ error }) => (error ? "red" : "green")};
+  color: ${({ error }) => (error ? 'red' : 'green')};
   padding: 5px;
   text-align: center;
   margin-top: 1rem;
-`;
+`
 
 export const FormInputRow = styled.div`
   display: flex;
@@ -63,7 +63,7 @@ export const FormInputRow = styled.div`
     margin-top: 0.5rem;
     color: #f00e0e;
   }
-`;
+`
 export const FormInput = styled.input`
   background: rgba(255, 255, 255, 0.15);
   box-shadow: rgb(37 205 152 / 7%) 0px 8px 32px 0px;
@@ -87,7 +87,7 @@ export const FormInput = styled.input`
     font-weight: 100;
     font-size: 1rem;
   }
-`;
+`
 
 export const FormButton = styled.button`
   border-radius: 10px;
@@ -109,11 +109,11 @@ export const FormButton = styled.button`
     transition: background-color 0.2s ease-in;
     background-color: rgb(61 234 179 / 85%);
   }
-`;
+`
 
 export const FormSubText = styled.p`
   color: white;
   margin-top: 50px;
   font-size: 18px;
   text-align: center;
-`;
+`

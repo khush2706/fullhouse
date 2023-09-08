@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const PlaylistBar = styled.div`
   height: 8%;
@@ -12,22 +12,22 @@ export const PlaylistBar = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`;
+`
 
 export const SongIdentifierWrapper = styled.div`
   display: flex;
   align-items: center;
   color: white;
-`;
+`
 
 export const SongName = styled.div`
   font-size: 16px;
   margin-bottom: 2px;
-`;
+`
 
 export const SingerName = styled.div`
   font-size: 14px;
-`;
+`
 
 export const ProgressBar = styled.input`
   -webkit-appearance: none;
@@ -51,4 +51,4 @@ export const ProgressBar = styled.input`
     width: 1rem;
     border-radius: 50%;
   }
-`;
+`

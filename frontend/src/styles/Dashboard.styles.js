@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const DashboardWrapper = styled.div`
   height: 100vh;
@@ -7,7 +7,7 @@ export const DashboardWrapper = styled.div`
   background-size: cover;
   padding: 30px 45px;
   overflow: hidden;
-`;
+`
 
 export const DashboardContainer = styled.div`
   background: rgb(87 83 83 / 20%);
@@ -20,7 +20,7 @@ export const DashboardContainer = styled.div`
   overflow: hidden;
   padding: 1.2em 2em;
   box-shadow: rgb(95 189 160 / 26%) 0px 8px 32px 0px;
-`;
+`
 
 export const DashboardHeader = styled.div`
   font-size: 1.8em;
@@ -31,7 +31,7 @@ export const DashboardHeader = styled.div`
   justify-content: space-between;
   font-weight: 500;
   letter-spacing: 1px;
-`;
+`
 
 export const CreateButton = styled.button`
   color: #fff;
@@ -55,7 +55,7 @@ export const CreateButton = styled.button`
   &:active {
     top: 5px;
   }
-`;
+`
 
 export const RoomsWrapper = styled.div`
   overflow: hidden auto;
@@ -64,5 +64,4 @@ export const RoomsWrapper = styled.div`
   padding: 40px 0;
   color: white;
   font-size: 18px;
-`;
-
+`

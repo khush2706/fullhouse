@@ -1,57 +1,57 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext } from 'react'
 import {
   MessageBox,
   MessageBoxBody,
   MessageBoxHeader,
   MessageInput,
-  SendMessage,
-} from "../styles/Message.styles";
-import { SocketContext } from "../contexts/socket";
-import { useParams } from "react-router-dom";
+  SendMessage
+} from '../styles/Message.styles'
+import { SocketContext } from '../contexts/socket'
+import { useParams } from 'react-router-dom'
 
 const Message = () => {
-  const username = localStorage.getItem("username");
-  const { roomId } = useParams();
-  const socket = useContext(SocketContext);
-  const [messages, setMessages] = useState([]);
-  const [userMessage, setUserMessage] = useState("");
+  const username = localStorage.getItem('username')
+  const { roomId } = useParams()
+  const socket = useContext(SocketContext)
+  const [messages, setMessages] = useState([])
+  const [userMessage, setUserMessage] = useState('')
 
   // Runs whenever a socket event is recieved from the server
   useEffect(() => {
-    socket.on("receive_message", ({ user, msg }) => {
+    socket.on('receive_message', ({ user, msg }) => {
       setMessages((state) => [
         ...state,
         {
-          user: user == username ? "You" : user,
-          message: msg,
-        },
-      ]);
-    });
+          user: user == username ? 'You' : user,
+          message: msg
+        }
+      ])
+    })
 
     // Remove event listener on component unmount
-    return () => socket.off("receive_message");
-  }, [socket]);
+    return () => socket.off('receive_message')
+  }, [socket])
 
   const sendMessage = (e) => {
-    if (userMessage != "") {
-      socket.emit("send_message", {
+    if (userMessage != '') {
+      socket.emit('send_message', {
         user: username,
         msg: userMessage,
-        roomId: roomId,
-      });
-      setUserMessage("");
+        roomId: roomId
+      })
+      setUserMessage('')
     }
-  };
+  }
   return (
     <MessageBox>
       <MessageBoxHeader>Chat</MessageBoxHeader>
       <MessageBoxBody>
         {messages.map((msg, index) => {
           return (
-            <div key={index} style={{ marginBottom: "10px" }}>
+            <div key={index} style={{ marginBottom: '10px' }}>
               <b>{msg.user}:</b> {msg.message}
             </div>
-          );
+          )
         })}
       </MessageBoxBody>
       <SendMessage>
@@ -59,11 +59,11 @@ const Message = () => {
           placeholder="Type your message"
           value={userMessage}
           onChange={(e) => {
-            setUserMessage(e.target.value);
+            setUserMessage(e.target.value)
           }}
           onKeyDown={(e) => {
-            if (e.key == "Enter") {
-              sendMessage();
+            if (e.key == 'Enter') {
+              sendMessage()
             }
           }}
         ></MessageInput>
@@ -73,9 +73,9 @@ const Message = () => {
           height="40"
           viewBox="0 0 24 24"
           style={{
-            fill: "rgb(37 205 152)",
-            transform: "scaleY(-1)",
-            cursor: "pointer",
+            fill: 'rgb(37 205 152)',
+            transform: 'scaleY(-1)',
+            cursor: 'pointer'
           }}
           onClick={sendMessage}
         >
@@ -83,7 +83,7 @@ const Message = () => {
         </svg>
       </SendMessage>
     </MessageBox>
-  );
-};
+  )
+}
 
-export default Message;
+export default Message

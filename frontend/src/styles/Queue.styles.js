@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { Button } from "./Room.styles";
+import styled from 'styled-components'
+import { Button } from './Room.styles'
 
 export const QueueWrapper = styled.div`
   height: 60%;
@@ -31,13 +31,13 @@ export const QueueWrapper = styled.div`
     border-radius: 11px;
     border: 3px solid black;
   }
-`;
+`
 
 export const QueueCta = styled(Button)`
   font-size: 14px;
   width: 150px;
   margin-right: 100px;
-`;
+`
 
 export const SearchBar = styled.input`
   outline: none;
@@ -50,4 +50,4 @@ export const SearchBar = styled.input`
   padding: 1.5em;
   font-size: 16px;
   box-sizing: border-box;
-`;
+`

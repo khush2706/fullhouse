@@ -1,15 +1,10 @@
-import {
-  Label,
-  Switch,
-  Input,
-  ToggleSpan,
-} from "../styles/ToggleButton.styles";
+import { Label, Switch, Input, ToggleSpan } from '../styles/ToggleButton.styles'
 
 const Toggle = ({ label, isPublic, setIsPublic }) => {
   const handleChange = (e) => {
-    setIsPublic(e.target.checked);
-    console.log(isPublic);
-  };
+    setIsPublic(e.target.checked)
+    console.log(isPublic)
+  }
 
   return (
     <Label>
@@ -17,7 +12,7 @@ const Toggle = ({ label, isPublic, setIsPublic }) => {
       <Input checked={isPublic} type="checkbox" onChange={handleChange} />
       <Switch />
     </Label>
-  );
-};
+  )
+}
 
-export default Toggle;
+export default Toggle

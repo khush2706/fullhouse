@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const MessageBox = styled.div`
   background: rgb(15 16 17 / 43%);
@@ -15,7 +15,7 @@ export const MessageBox = styled.div`
   flex-direction: column;
   align-items: center; */
   padding: 10px 15px;
-`;
+`
 
 export const MessageBoxHeader = styled.div`
   width: 100%;
@@ -23,7 +23,7 @@ export const MessageBoxHeader = styled.div`
   font-size: 24px;
   padding: 0.5em 0.2em;
   font-weight: 500;
-`;
+`
 
 export const MessageBoxBody = styled.div`
   height: 80%;
@@ -32,7 +32,7 @@ export const MessageBoxBody = styled.div`
   color: white;
   font-size: 18px;
   padding: 20px 0.2em;
-`;
+`
 
 export const MessageInput = styled.input`
   outline: none;
@@ -56,7 +56,7 @@ export const MessageInput = styled.input`
     font-weight: 100;
     font-size: 1rem;
   }
-`;
+`
 export const SendMessage = styled.div`
   display: flex;
   justify-content: space-between;

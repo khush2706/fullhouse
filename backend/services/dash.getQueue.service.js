@@ -1,25 +1,22 @@
-const Queue = require("../models/queue.model");
-var mongoose = require("mongoose");
+const { redisClient } = require('../redis.config')
 
 const getQueueService = async (req, res) => {
-  const { queueId } = req.params;
-  var id = mongoose.Types.ObjectId(queueId);
+  const { queueId } = req.params
   try {
-    const queue = await Queue.findOne({ _id: id });
+    const queue = await redisClient.json.get(queueId, '.')
     res.status(200).json({
-      status: "ok",
+      status: 'ok',
       data: {
         songs: queue.songs,
-        currentTrackIndex: queue.currentTrackIndex,
-        songStartTime: queue.songStartTime
-      },
-    });
+        members: queue.members
+      }
+    })
   } catch (err) {
-    console.log(err);
-    res.status(500).json({ err: "Something went wrong" });
+    console.log(err)
+    res.status(500).json({ err: 'Something went wrong' })
   }
-};
+}
 
 module.exports = {
-  getQueueService,
-};
+  getQueueService
+}

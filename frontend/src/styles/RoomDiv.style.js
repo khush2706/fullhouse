@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const RoomCard = styled.div`
   background: rgb(57 56 56 / 25%);
@@ -10,7 +10,7 @@ export const RoomCard = styled.div`
   margin-right: 20px;
   margin-bottom: 20px;
   min-width: 31%;
-`;
+`
 
 export const CardHeader = styled.div`
   color: white;
@@ -21,14 +21,14 @@ export const CardHeader = styled.div`
   font-weight: 500;
   margin-bottom: 15px;
   width: 100%;
-`;
+`
 
 export const CardBody = styled.div`
   color: #c0c0c0;
   font-size: 16px;
   margin-bottom: 15px;
   width: 100%;
-`;
+`
 
 export const CardFooter = styled.div`
   color: white;
@@ -36,7 +36,7 @@ export const CardFooter = styled.div`
   font-size: 16px;
   margin-bottom: 10px;
   width: 100%;
-`;
+`
 
 export const JoinButton = styled.button`
   outline: none;
@@ -58,7 +58,7 @@ export const JoinButton = styled.button`
   &:active {
     top: 5px;
   }
-`;
+`
 
 export const MembersDiv = styled.div`
   background-color: rgb(76 79 80 / 57%);

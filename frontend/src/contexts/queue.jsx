@@ -1,19 +1,17 @@
-import { createContext, useState } from "react";
+import { createContext, useState } from 'react'
 
-const QueueContext = createContext();
+const QueueContext = createContext()
 
-export default QueueContext;
+export default QueueContext
 
 export function QueueIdProvider({ children }) {
-  const [queueId, setQueueId] = useState();
+  const [queueId, setQueueId] = useState()
 
   const updateQueueId = (queueId) => {
-    setQueueId(queueId);
-  };
-  
+    setQueueId(queueId)
+  }
+
   return (
-    <QueueContext.Provider value={{ queueId, updateQueueId }}>
-      {children}
-    </QueueContext.Provider>
-  );
+    <QueueContext.Provider value={{ queueId, updateQueueId }}>{children}</QueueContext.Provider>
+  )
 }

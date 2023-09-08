@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   FormColumn,
   FormWrapper,
@@ -7,78 +7,78 @@ import {
   FormInputRow,
   FormMessage,
   FormButton,
-  FormTitle,
-} from "../styles/Form.styles";
-import { Overlay } from "../styles/Modal.styles";
-import validateJoinRoomForm from "../validators/joinRoomForm.validate";
+  FormTitle
+} from '../styles/Form.styles'
+import { Overlay } from '../styles/Modal.styles'
+import validateJoinRoomForm from '../validators/joinRoomForm.validate'
 
 const JoinRoomModal = ({ close }) => {
-  const [error, setError] = useState(null);
-  const [roomId, setRoomId] = useState("");
-  const username = localStorage.getItem("username");
-  const token = localStorage.getItem("token");
-  const navigate = useNavigate();
+  const [error, setError] = useState(null)
+  const [roomId, setRoomId] = useState('')
+  const username = localStorage.getItem('username')
+  const token = localStorage.getItem('token')
+  const navigate = useNavigate()
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     const resultError = validateJoinRoomForm({
-      roomId,
-    });
+      roomId
+    })
 
     if (resultError !== null) {
-      setError(resultError);
-      return;
+      setError(resultError)
+      return
     }
 
-    let myHeaders = new Headers();
-    myHeaders.append("auth-token", token);
-    myHeaders.append("Content-Type", "application/json");
+    let myHeaders = new Headers()
+    myHeaders.append('auth-token', token)
+    myHeaders.append('Content-Type', 'application/json')
 
     let requestOptions = {
-      method: "PATCH",
+      method: 'PATCH',
       headers: myHeaders,
       body: JSON.stringify({
         username: username,
-        roomId: roomId,
-      }),
-    };
+        roomId: roomId
+      })
+    }
 
-    fetch("http://localhost:1337/api/dashboard/join", requestOptions)
+    fetch('http://localhost:1337/api/dashboard/join', requestOptions)
       .then((res) => {
         if (!res.ok)
           return res.json().then((data) => {
-            throw new Error(data.error);
-          });
-        else return res.json();
+            throw new Error(data.error)
+          })
+        else return res.json()
       })
       .then((res) => {
-        navigate(`${roomId}`);
+        navigate(`${roomId}`)
       })
       .catch((error) => {
-        setError(error.message);
-      });
-  };
+        setError(error.message)
+      })
+  }
 
   const formData = [
     {
-      label: "Room Id",
+      label: 'Room Id',
       value: roomId,
       onChange: (e) => setRoomId(e.target.value),
-      type: "text",
-    },
-  ];
+      type: 'text'
+    }
+  ]
   const messageVariants = {
     hidden: { y: 30, opacity: 0 },
-    animate: { y: 0, opacity: 1, transition: { delay: 0.2, duration: 0.4 } },
-  };
+    animate: { y: 0, opacity: 1, transition: { delay: 0.2, duration: 0.4 } }
+  }
   return (
     <>
       <Overlay onClick={close}>
         <FormColumn
           onClick={(e) => {
             // do not close modal if anything inside modal content is clicked
-            e.stopPropagation();
+            e.stopPropagation()
           }}
         >
           <FormTitle>Join Room</FormTitle>
@@ -96,19 +96,14 @@ const JoinRoomModal = ({ close }) => {
             <FormButton type="submit">Join</FormButton>
           </FormWrapper>
           {error && (
-            <FormMessage
-              variants={messageVariants}
-              initial="hidden"
-              animate="animate"
-              error
-            >
+            <FormMessage variants={messageVariants} initial="hidden" animate="animate" error>
               {error}
             </FormMessage>
           )}
         </FormColumn>
       </Overlay>
     </>
-  );
-};
+  )
+}
 
-export default JoinRoomModal;
+export default JoinRoomModal

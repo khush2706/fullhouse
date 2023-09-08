@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Michroma&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
 
 * {
   margin: 0;
@@ -41,7 +41,7 @@
   color: white;
   cursor: pointer;
   text-decoration: none;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .btn:hover {
@@ -54,7 +54,7 @@
 }
 
 .hero_heading {
-  font-family: "Michroma", sans-serif;
+  font-family: 'Michroma', sans-serif;
   font-weight: 700;
   font-size: 6rem;
   color: white;
@@ -64,7 +64,7 @@
 }
 
 .hero_subtext {
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   color: white;
   letter-spacing: 0.3em;
   font-size: 1.6rem;
@@ -86,7 +86,7 @@
   border: none;
   background: #80ed99;
   box-shadow: 0 5px #57cc99;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   letter-spacing: 0.2em;
   text-decoration: none;
   display: flex;
@@ -146,11 +146,7 @@ ul#shape li {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: linear-gradient(
-    109.6deg,
-    rgb(255, 219, 47) 11.2%,
-    rgb(244, 253, 0) 100.2%
-  );
+  background: linear-gradient(109.6deg, rgb(255, 219, 47) 11.2%, rgb(244, 253, 0) 100.2%);
   border: none !important;
 }
 
@@ -158,11 +154,7 @@ ul#shape li {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: radial-gradient(
-    circle at 0.9% 49.5%,
-    rgb(0, 250, 255) 0%,
-    rgb(2, 255, 187) 100.2%
-  );
+  background: radial-gradient(circle at 0.9% 49.5%, rgb(0, 250, 255) 0%, rgb(2, 255, 187) 100.2%);
   border: none !important;
 }
 
@@ -170,11 +162,7 @@ ul#shape li {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: linear-gradient(
-    99deg,
-    rgb(255, 166, 0) 14.7%,
-    rgb(255, 99, 97) 73%
-  );
+  background: linear-gradient(99deg, rgb(255, 166, 0) 14.7%, rgb(255, 99, 97) 73%);
   border: none !important;
 }
 
