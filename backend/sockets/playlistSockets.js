@@ -1,13 +1,11 @@
 const playVideo = (socket, io) => {
   socket.on('play_video', ({ roomId }) => {
-    console.log('played')
     io.to(roomId).emit('play_video', {})
   })
 }
 
 const pauseVideo = (socket, io) => {
   socket.on('pause_video', ({ roomId }) => {
-    console.log('paused')
     io.to(roomId).emit('pause_video', {})
   })
 }
@@ -26,4 +24,10 @@ const songAdded = (socket, io) => {
   })
 }
 
-module.exports = { playVideo, pauseVideo, songStarted, songAdded }
+const songEnded = (socket, io) => {
+  socket.on('song_ended', ({ roomId }) => {
+    io.in(roomId).emit('ended_song', {})
+  })
+}
+
+module.exports = { playVideo, pauseVideo, songStarted, songAdded, songEnded }

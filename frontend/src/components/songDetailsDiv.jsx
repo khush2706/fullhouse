@@ -45,7 +45,6 @@ const SongDetailsDiv = ({ thumbnailUrl, title, channelName, dataId, videoId, add
           roomId,
           songInfo: { songTitle: title, channelName, thumbnailUrl, videoId: dataId, username }
         })
-        console.log('emitted')
       })
       .catch((error) => {
         console.log('error', error.message)

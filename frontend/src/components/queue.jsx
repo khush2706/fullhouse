@@ -4,7 +4,7 @@ import { QueueWrapper, QueueCta, SearchBar } from '../styles/Queue.styles'
 import QueueContext from '../contexts/queue'
 import SongDetailsDiv from './songDetailsDiv'
 import { SocketContext } from '../contexts/socket'
-import VideoIdContext from '../contexts/videoId'
+import PlaylistContext from '../contexts/playlist'
 
 const Queue = () => {
   const [search, setSearch] = useState('')
@@ -49,11 +49,10 @@ const Queue = () => {
   // const [videosList, setVideosList] = useState([])
   const [addSong, setAddSong] = useState(false)
   const [emptyQueue, setEmptyQueue] = useState(false)
-  const [songs, setSongs] = useState([])
   const token = localStorage.getItem('token')
   const socket = useContext(SocketContext)
   const { queueId, updateQueueId } = useContext(QueueContext)
-  const { videoId, updateVideoId } = useContext(VideoIdContext)
+  const { playlistData, updatePlaylistData } = useContext(PlaylistContext)
 
   useEffect(() => {
     const headers = new Headers()
@@ -74,9 +73,10 @@ const Queue = () => {
         else return res.json()
       })
       .then((res) => {
-        console.log(res)
         if (!res?.data?.songs?.length) setEmptyQueue(true)
-        else setSongs(res?.data?.songs)
+        else {
+          updatePlaylistData().setPlaylistSongsfromDb(res?.data?.songs)
+        }
       })
       .catch((error) => {
         console.log('error', error.message)
@@ -86,19 +86,16 @@ const Queue = () => {
   //Runs whenever a socket event is recieved from the server
   useEffect(() => {
     socket.on('song_added', ({ songInfo }) => {
-      console.log({ songInfo })
+      if(!playlistData.length)
       setEmptyQueue(false)
-      if (!songs.length) updateVideoId(songInfo.videoId)
-      setSongs((state) => [
-        ...state,
-        {
-          title: songInfo.songTitle,
-          channelName: songInfo.channelName,
-          thumbnailUrl: songInfo.thumbnailUrl,
-          videoId: songInfo.videoId,
-          addedBy: songInfo.username
-        }
-      ])
+      const newSong = {
+        title: songInfo.songTitle,
+        channelName: songInfo.channelName,
+        thumbnailUrl: songInfo.thumbnailUrl,
+        videoId: songInfo.videoId,
+        addedBy: songInfo.username
+      }
+      updatePlaylistData().addNewSong(newSong)
     })
 
     // Remove event listener on component unmount
@@ -168,8 +165,7 @@ const Queue = () => {
               padding: '1em 16em',
               overflowX: 'hidden',
               overflowY: 'auto'
-            }}
-          >
+            }}>
             {videosList.size != 0 &&
               videosList.map((video, index) => {
                 return (
@@ -194,13 +190,12 @@ const Queue = () => {
               overflowX: 'hidden',
               overflowY: 'auto',
               color: 'white'
-            }}
-          >
-            {emptyQueue ? (
+            }}>
+            {emptyQueue && !playlistData.length ? (
               <p>Queue is Empty</p>
             ) : (
-              songs.length &&
-              songs.map((song, index) => {
+              playlistData.length &&
+              playlistData.map((song, index) => {
                 return (
                   <SongDetailsDiv
                     key={index}

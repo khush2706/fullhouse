@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext, useCallback } from 'react'
+import { useEffect, useState, useContext, useCallback, useRef } from 'react'
 import {
   Button,
   RoomContainer,
@@ -16,6 +16,7 @@ import Message from '../components/message'
 import YouTubeVideo from '../components/youtubePlayer'
 import Playlist from '../components/playlist'
 import QueueContext from '../contexts/queue'
+import PlaylistContext from '../contexts/playlist'
 
 const Room = () => {
   const username = localStorage.getItem('username')
@@ -26,6 +27,7 @@ const Room = () => {
   const [error, setError] = useState(null)
   const [roomDetails, setRoomDetails] = useState({})
   const [joinQueue, setJoinQueue] = useState(false)
+  const { playlistData, updatePlaylistData } = useContext(PlaylistContext)
 
   const JoinQueue = useCallback(() => {
     const headers = new Headers()
@@ -53,7 +55,6 @@ const Room = () => {
           else return res.json()
         })
         .then((res) => {
-          console.log(res)
           setJoinQueue(true)
         })
         .catch((error) => {
@@ -80,9 +81,9 @@ const Room = () => {
         else return res.json()
       })
       .then((result) => {
-        console.log(result)
         updateQueueId(result.data.queue)
         setRoomDetails(result.data)
+        localStorage.setItem("admin", result.data.createdBy)
       })
       .then((res) => {
         socket.emit('join_room', { roomId: roomId, username: username })
@@ -106,7 +107,7 @@ const Room = () => {
             </RoomNameWrapper>
             <Button>Leave</Button>
           </RoomHeader>
-          {joinQueue && (
+          {joinQueue && playlistData.length && (
             <div style={{ marginLeft: '150px', marginTop: '50px' }}>
               <YouTubeVideo roomId={roomId} />
             </div>
@@ -119,8 +120,7 @@ const Room = () => {
                 display: 'flex',
                 alignItems: 'center',
                 height: '50%'
-              }}
-            >
+              }}>
               <WideButton onClick={JoinQueue}>Join Queue</WideButton>
             </div>
           )}

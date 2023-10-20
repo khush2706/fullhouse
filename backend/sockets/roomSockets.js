@@ -1,6 +1,5 @@
 const joinRoom = (socket) => {
   socket.on('join_room', ({ roomId, username }) => {
-    console.log('joined')
     socket.join(roomId)
     socket.to(roomId).emit('user_joined', {
       username: username,

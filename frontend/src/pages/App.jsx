@@ -9,7 +9,7 @@ import ProtectedRoute from '../components/ProtectedRoute'
 import Room from './Room'
 import { SocketContext, socket } from '../contexts/socket'
 import { QueueIdProvider } from '../contexts/queue'
-import { VideoIdProvider } from '../contexts/videoId'
+import { PlaylistProvider } from '../contexts/playlist'
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token'))
@@ -20,10 +20,9 @@ function App() {
   return (
     <>
       <GlobalStyle />
+      <PlaylistProvider>
       <SocketContext.Provider value={socket}>
-        {/* <PlaylistProvider> */}
         <QueueIdProvider>
-          <VideoIdProvider>
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Home />} />
@@ -47,10 +46,9 @@ function App() {
                 />
               </Routes>
             </BrowserRouter>
-          </VideoIdProvider>
         </QueueIdProvider>
-        {/* </PlaylistProvider> */}
       </SocketContext.Provider>
+      </PlaylistProvider>
     </>
   )
 }

@@ -59,7 +59,6 @@ const CreateRoomModal = ({ close }) => {
         else return res.json()
       })
       .then((res) => {
-        console.log(res)
         const { roomId } = res.data
         navigate(`${roomId}`)
       })

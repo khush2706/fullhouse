@@ -6,6 +6,7 @@ const { getRoomsService } = require('../services/dash.getRooms.service')
 const { joinQueueValidation } = require('../controllers/dash.joinQueue.controller')
 const { getQueueService } = require('../services/dash.getQueue.service')
 const { addSongValidation } = require('../controllers/dash.addSong.controller')
+const {removeTopSongValidation} = require('../controllers/dash.removeTopSong.controller')
 
 router.post('/create', (req, res) => {
   createRoomValidation(req, res)
@@ -38,4 +39,8 @@ router.get('/queue/:queueId', (req, res) => {
 
 router.patch('/addSong', (req, res) => {
   addSongValidation(req, res)
+})
+
+router.patch('/removeTopSong', (req, res) => {
+  removeTopSongValidation(req, res)
 })

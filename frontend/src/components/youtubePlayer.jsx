@@ -1,34 +1,45 @@
-import { useEffect, useContext, useRef } from 'react'
+import { useEffect, useContext, useRef, useState } from 'react'
 import { SocketContext } from '../contexts/socket'
-import VideoIdContext from '../contexts/videoId'
+import PlaylistContext from '../contexts/playlist'
 import YouTube from 'react-youtube'
+import QueueContext from '../contexts/queue'
 
 const YouTubeVideo = ({ roomId }) => {
   const socket = useContext(SocketContext)
-  const { videoId, updateVideoId } = useContext(VideoIdContext)
-  let count = 0
+  const [videoId, setVideoId] = useState('')
+  // const videoId = useRef('')
+  const { playlistData, updatePlaylistData } = useContext(PlaylistContext)
+  const { queueId, updateQueueId } = useContext(QueueContext)
+  const token = localStorage.getItem('token')
   const ytplayer = useRef()
 
   useEffect(() => {
+    let socketMsg
     socket.on('play_video', () => {
-      console.log('playing')
+      socketMsg = 'play_video'
       ytplayer.current?.playVideo()
     })
 
     socket.on('pause_video', () => {
-      console.log('pausing')
+      socketMsg = 'pause_video'
       ytplayer.current?.pauseVideo()
+      ytplayer.current.seekTo(170, true)
     })
 
-    socket.on('video_seek', () => {
-      console.log('seeking')
-      // player.seekTo(30, true);
+    socket.on('ended_song', () => {
+      socketMsg = 'ended_song'
+      updatePlaylistData().removeTopSong(playlistData)
     })
+
+    return () => {
+      socket.off('pause_video')
+      socket.off('play_video')
+      socket.off('ended_song')
+    }
   }, [socket])
 
   useEffect(() => {
     if (ytplayer.current) {
-      console.log({ ytplayer: ytplayer.current, videoId })
       try {
         ytplayer.current?.loadVideoById(videoId)
       } catch (err) {
@@ -37,22 +48,54 @@ const YouTubeVideo = ({ roomId }) => {
     }
   }, [videoId])
 
+  useEffect(() => {
+    setVideoId(playlistData[0]?.videoId)
+    // videoId.current = playlistData[0]?.videoId
+  }, [playlistData])
+
+  const handleVideoChange = () => {
+    const headers = new Headers()
+    headers.append('auth-token', token)
+    headers.append('Content-Type', 'application/json')
+
+    const requestOptions = {
+      method: 'PATCH',
+      headers,
+      body: JSON.stringify({
+        queueId
+      })
+    }
+
+    fetch(`http://localhost:1337/api/dashboard/removeTopSong`, requestOptions)
+      .then((res) => {
+        if (!res.ok)
+          return res.json().then((data) => {
+            throw new Error(data.err)
+          })
+        else return res.json()
+      })
+      .then((res) => {
+        socket.emit('song_ended', { roomId })
+      })
+      .catch((error) => {
+        console.log('error', error.message)
+      })
+  }
+
   const onPlayerReady = (event) => {
     ytplayer.current = event.target
     console.log({ ytplayer: ytplayer.current })
-    // event.target?.playVideo();
-    // player.seekTo(30, true);
+    event.target?.pauseVideo()
   }
 
   const onPlayerStateChange = (event) => {
-    count++
     if (event.data === 1) {
       socket.emit('play_video', { roomId: roomId })
-      if (count === 1) {
-        socket.emit('song_started', { roomId: roomId })
-      }
     } else if (event.data === 2) {
       socket.emit('pause_video', { roomId: roomId })
+    } else if (event.data === 0) {
+      if(localStorage.getItem('username') === localStorage.getItem('admin'))
+      handleVideoChange()
     }
   }
 
@@ -60,7 +103,7 @@ const YouTubeVideo = ({ roomId }) => {
     height: '390',
     width: '640',
     playerVars: {
-      autoplay: 1,
+      autoplay: 0,
       controls: 0,
       disablekb: 1,
       enablejsapi: 1
