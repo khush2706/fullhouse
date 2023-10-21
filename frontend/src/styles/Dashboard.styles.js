@@ -8,7 +8,7 @@ export const DashboardWrapper = styled.div`
   padding: 30px 45px;
   overflow: hidden;
 
-  @media (max-width: 539px) {
+  @media (max-width: 768px) {
     &{
       padding: 20px 15px;
     }
@@ -27,7 +27,7 @@ export const DashboardContainer = styled.div`
   padding: 1.2em 2em;
   box-shadow: rgb(95 189 160 / 26%) 0px 8px 32px 0px;
 
-  @media (max-width: 539px){
+  @media (max-width: 768px){
     &{
       padding: 1.2em 1.2em;
       overflow: auto;
@@ -45,7 +45,7 @@ export const DashboardHeader = styled.div`
   font-weight: 500;
   letter-spacing: 1px;
 
-  @media (max-width: 539px) {
+  @media (max-width: 768px) {
     &{
       font-size: 1.3em;
       padding-top: 1em;
@@ -78,7 +78,7 @@ export const CreateButton = styled.button`
     top: 5px;
   }
 
-  @media (max-width: 539px){
+  @media (max-width: 768px){
     &{
       font-size: 14px;
       padding: 8px;
@@ -96,7 +96,7 @@ export const RoomsWrapper = styled.div`
   color: white;
   font-size: 18px;
 
-  @media (max-width: 539px) {
+  @media (max-width: 768px) {
     &{
       flex-direction: column;
     }

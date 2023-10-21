@@ -43,7 +43,13 @@ export const FormColumn = styled.div`
   flex-direction: column;
   overflow: hidden;
   z-index: 2;
-
+  @media (max-width: 768px) {
+    & {
+      width: 50%;
+      padding: 30px 15px;
+      min-height: 50%;
+    }
+  }
   @media (max-width: 539px){
     & {
       width: 80%;
@@ -131,7 +137,7 @@ export const FormSubText = styled.p`
   font-size: 18px;
   text-align: center;
 
-  & a:visited{
+  & a{
     color: #17d217;
   }
 
