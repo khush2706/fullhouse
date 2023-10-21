@@ -55,6 +55,10 @@ Join us to explore FullHouse's features, installation steps, underlying technolo
 
 - **Redis Integration:** The project incorporates Redis for faster data access and optimized read/write operations, contributing to a smooth and responsive user experience.
 
+### Demo
+
+https://github.com/khush2706/fullhouse/assets/86849664/291de8f8-b57f-418b-ace1-2a249b74038a
+
 ### Challenges 
 
 - Given this is my first fullstack project, everything in the backend domain was very new to me. 
@@ -71,4 +75,4 @@ FullHouse is an evolving project with exciting possibilities on the horizon. Her
 
 **Implementing end-to-end testing using Jest:** I also plan to learn Jest and add test suites for both frontend and backend.
 
-I am constantly striving to make the platform more engaging and interactive, and your feedback will play a significant role in shaping its future. 
+I am constantly striving to make the platform more engaging and interactive, and your feedback will play a significant role in shaping its future.
