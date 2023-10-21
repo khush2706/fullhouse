@@ -17,6 +17,7 @@ import { SelectedThumbsDown } from '../../resources/images/svgs/selectedThumbsDo
 import { SelectedThumbsUp } from '../../resources/images/svgs/selectedThumbsUp'
 import { SocketContext } from '../contexts/socket'
 import Queue from './queue'
+import QueueContext from '../contexts/queue'
 import PlaylistContext from '../contexts/playlist'
 
 const Playlist = ({ roomId }) => {
@@ -25,6 +26,39 @@ const Playlist = ({ roomId }) => {
   const [queueOpen, setQueueOpen] = useState(true)
   const socket = useContext(SocketContext)
   const { playlistData, updatePlaylistData, playing } = useContext(PlaylistContext)
+  const token = localStorage.getItem('token')
+  const { queueId, updateQueueId } = useContext(QueueContext)
+
+  const handleVideoChange = () => {
+    const headers = new Headers()
+    headers.append('auth-token', token)
+    headers.append('Content-Type', 'application/json')
+
+    const requestOptions = {
+      method: 'PATCH',
+      headers,
+      body: JSON.stringify({
+        queueId
+      })
+    }
+
+    fetch(`http://localhost:1337/api/dashboard/removeTopSong`, requestOptions)
+      .then((res) => {
+        if (!res.ok)
+          return res.json().then((data) => {
+            throw new Error(data.err)
+          })
+        else return res.json()
+      })
+      .then((res) => {
+        socket.emit('song_ended', { roomId })
+        setDownVoted(false)
+        setUpVoted(false)
+      })
+      .catch((error) => {
+        console.log('error', error.message)
+      })
+  }
 
   return (
     <>
@@ -38,7 +72,7 @@ const Playlist = ({ roomId }) => {
             </SongName>
             <SingerName>{playlistData[0]?.channelName}</SingerName>
           </div>
-          {/* <div
+          <div
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -61,13 +95,14 @@ const Playlist = ({ roomId }) => {
                 handleClick={() => {
                   if (!downVoted && !upVoted) {
                     setDownVoted(true)
+                    handleVideoChange()
                   }
                 }}
               />
             ) : (
               <SelectedThumbsDown />
             )}
-          </div> */}
+          </div>
         </SongIdentifierWrapper>
         {!playing ? (
           <PlayButton

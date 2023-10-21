@@ -21,7 +21,7 @@ const YouTubeVideo = ({ roomId }) => {
 
     socket.on('video_pause', () => {
       ytplayer.current?.pauseVideo()
-      ytplayer.current.seekTo(170, true)
+      // ytplayer.current.seekTo(170, true)
       updatePlaylistData().setIsPlaying(false)
     })
 
