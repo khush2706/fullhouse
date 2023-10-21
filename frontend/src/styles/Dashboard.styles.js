@@ -7,6 +7,12 @@ export const DashboardWrapper = styled.div`
   background-size: cover;
   padding: 30px 45px;
   overflow: hidden;
+
+  @media (max-width: 539px) {
+    &{
+      padding: 20px 15px;
+    }
+  }
 `
 
 export const DashboardContainer = styled.div`
@@ -20,6 +26,13 @@ export const DashboardContainer = styled.div`
   overflow: hidden;
   padding: 1.2em 2em;
   box-shadow: rgb(95 189 160 / 26%) 0px 8px 32px 0px;
+
+  @media (max-width: 539px){
+    &{
+      padding: 1.2em 1.2em;
+      overflow: auto;
+    }
+  }
 `
 
 export const DashboardHeader = styled.div`
@@ -31,6 +44,15 @@ export const DashboardHeader = styled.div`
   justify-content: space-between;
   font-weight: 500;
   letter-spacing: 1px;
+
+  @media (max-width: 539px) {
+    &{
+      font-size: 1.3em;
+      padding-top: 1em;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
 `
 
 export const CreateButton = styled.button`
@@ -55,6 +77,15 @@ export const CreateButton = styled.button`
   &:active {
     top: 5px;
   }
+
+  @media (max-width: 539px){
+    &{
+      font-size: 14px;
+      padding: 8px;
+      margin-right: 10px;
+      margin-top: 20px;
+    }
+  }
 `
 
 export const RoomsWrapper = styled.div`
@@ -64,4 +95,10 @@ export const RoomsWrapper = styled.div`
   padding: 40px 0;
   color: white;
   font-size: 18px;
+
+  @media (max-width: 539px) {
+    &{
+      flex-direction: column;
+    }
+  }
 `

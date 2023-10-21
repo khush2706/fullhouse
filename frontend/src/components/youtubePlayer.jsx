@@ -14,26 +14,24 @@ const YouTubeVideo = ({ roomId }) => {
   const ytplayer = useRef()
 
   useEffect(() => {
-    let socketMsg
-    socket.on('play_video', () => {
-      socketMsg = 'play_video'
+    socket.on('video_play', () => {
       ytplayer.current?.playVideo()
+      updatePlaylistData().setIsPlaying(true)
     })
 
-    socket.on('pause_video', () => {
-      socketMsg = 'pause_video'
+    socket.on('video_pause', () => {
       ytplayer.current?.pauseVideo()
       ytplayer.current.seekTo(170, true)
+      updatePlaylistData().setIsPlaying(false)
     })
 
     socket.on('ended_song', () => {
-      socketMsg = 'ended_song'
       updatePlaylistData().removeTopSong(playlistData)
     })
 
     return () => {
-      socket.off('pause_video')
-      socket.off('play_video')
+      socket.off('video_play')
+      socket.off('video_pause')
       socket.off('ended_song')
     }
   }, [socket])
@@ -94,9 +92,8 @@ const YouTubeVideo = ({ roomId }) => {
     } else if (event.data === 2) {
       socket.emit('pause_video', { roomId: roomId })
     } else if (event.data === 0) {
-      if(localStorage.getItem('username') === localStorage.getItem('admin'))
-      handleVideoChange()
-    }
+      if (localStorage.getItem('username') === localStorage.getItem('admin')) handleVideoChange()
+    } 
   }
 
   let opts = {
@@ -117,6 +114,7 @@ const YouTubeVideo = ({ roomId }) => {
         opts={opts}
         onReady={onPlayerReady}
         onStateChange={onPlayerStateChange}
+        className="youtube_player"
       />
     </div>
   )

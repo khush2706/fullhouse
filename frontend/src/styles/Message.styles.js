@@ -15,6 +15,12 @@ export const MessageBox = styled.div`
   flex-direction: column;
   align-items: center; */
   padding: 10px 15px;
+
+  @media (max-width: 768px){
+    & {
+      display: none;
+    }
+  }
 `
 
 export const MessageBoxHeader = styled.div`

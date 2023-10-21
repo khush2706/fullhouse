@@ -1,12 +1,12 @@
 const playVideo = (socket, io) => {
   socket.on('play_video', ({ roomId }) => {
-    io.to(roomId).emit('play_video', {})
+    io.to(roomId).emit('video_play', {})
   })
 }
 
 const pauseVideo = (socket, io) => {
   socket.on('pause_video', ({ roomId }) => {
-    io.to(roomId).emit('pause_video', {})
+    io.to(roomId).emit('video_pause', {})
   })
 }
 

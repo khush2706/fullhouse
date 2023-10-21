@@ -7,7 +7,7 @@
 }
 
 .home {
-  height: 100vh;
+  min-height: 100vh;
   background-image: url(/resources/images/bg.png);
   background-repeat: no-repeat;
   background-position: center;
@@ -272,4 +272,42 @@ ul#shape li:nth-child(8) {
   display: inline-block;
   position: relative;
   right: 10px;
+}
+
+
+@media (max-width: 539px) {
+  .home_navbar{
+    padding: 10px;
+  }
+
+  .home_navbar a{
+    font-size: 14px;
+    margin-right: 25px;
+  }
+
+  .hero_text{
+    margin-bottom: 9rem;
+  }
+
+  .hero_heading{
+    font-size: 1.5rem;
+  }
+
+  .hero_heading_span{
+    width: 80px;
+    height: 30px;
+    right: 2px;
+    border-width: 4px;
+    top: 3px
+  }
+
+  .hero_subtext{
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .hero_cta{
+    width: 130px;
+    font-size: 14px;
+  }
 }

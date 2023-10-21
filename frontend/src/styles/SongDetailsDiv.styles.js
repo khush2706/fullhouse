@@ -9,6 +9,17 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
+
+  @media (max-width: 768px) {
+    & {
+      width: 100%;
+      padding: 0 10px;
+    }
+
+    & img {
+      width: 100px;
+    }
+  }
 `
 
 export const SongInfo = styled.div`
@@ -21,6 +32,12 @@ export const SongInfo = styled.div`
 export const SongTitle = styled.div`
   color: white;
   font-size: 16px;
+
+  @media (max-width: 768px) {
+    & {
+      font-size: 14px;
+    }
+  }
 `
 
 export const ChannelName = styled.div`

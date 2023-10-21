@@ -6,6 +6,7 @@ export default PlaylistContext
 
 export function PlaylistProvider({ children }) {
   const [playlistData, setPlaylistData] = useState([])
+  const [playing, setPlaying] = useState(false)
 
   const updatePlaylistData = () => {
     function addNewSong(newSong) {
@@ -28,12 +29,16 @@ export function PlaylistProvider({ children }) {
       setPlaylistData((state) => {return [...songsList]})
     }
 
+    function setIsPlaying(boolValue) {
+      setPlaying((state) => {return boolValue})
+    }
+
     return{
-      addNewSong, removeTopSong, setPlaylistSongsfromDb
+      addNewSong, removeTopSong, setPlaylistSongsfromDb, setIsPlaying
     }
   }
   return (
-    <PlaylistContext.Provider value={{ playlistData, updatePlaylistData }}>
+    <PlaylistContext.Provider value={{ playlistData, playing, updatePlaylistData }}>
       {children}
     </PlaylistContext.Provider>
   )

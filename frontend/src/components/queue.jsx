@@ -89,7 +89,7 @@ const Queue = () => {
       if(!playlistData.length)
       setEmptyQueue(false)
       const newSong = {
-        title: songInfo.songTitle,
+        songTitle: songInfo.songTitle,
         channelName: songInfo.channelName,
         thumbnailUrl: songInfo.thumbnailUrl,
         videoId: songInfo.videoId,
@@ -146,8 +146,9 @@ const Queue = () => {
     <QueueWrapper>
       {addSong && (
         <>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <QueueCta onClick={() => setAddSong(false)}>Back to Queue</QueueCta>
+          <div style={{ display: 'flex', alignItems: 'center' }} className='search_wrapper'>
+            <QueueCta onClick={() => setAddSong(false)} className='cta'>Back</QueueCta>
+            <div className='search_bar'>
             <SearchBar
               type="text"
               value={search}
@@ -159,13 +160,15 @@ const Queue = () => {
             <div onClick={searchSong}>
               <SearchIcon />
             </div>
+            </div>
           </div>
           <div
             style={{
               padding: '1em 16em',
               overflowX: 'hidden',
               overflowY: 'auto'
-            }}>
+            }}
+            className='songsDiv_wrapper'>
             {videosList.size != 0 &&
               videosList.map((video, index) => {
                 return (
@@ -190,7 +193,8 @@ const Queue = () => {
               overflowX: 'hidden',
               overflowY: 'auto',
               color: 'white'
-            }}>
+            }}
+            className='queueDiv'>
             {emptyQueue && !playlistData.length ? (
               <p>Queue is Empty</p>
             ) : (
@@ -200,7 +204,7 @@ const Queue = () => {
                   <SongDetailsDiv
                     key={index}
                     thumbnailUrl={song.thumbnailUrl}
-                    title={song.title}
+                    title={song.songTitle}
                     channelName={song.channelName}
                     videoId={song.videoId}
                     addedBy={song.addedBy}

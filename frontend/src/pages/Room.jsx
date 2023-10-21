@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext, useCallback, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   Button,
   RoomContainer,
@@ -26,6 +27,7 @@ const Room = () => {
   const { queueId, updateQueueId } = useContext(QueueContext)
   const [error, setError] = useState(null)
   const [roomDetails, setRoomDetails] = useState({})
+  const navigate = useNavigate()
   const [joinQueue, setJoinQueue] = useState(false)
   const { playlistData, updatePlaylistData } = useContext(PlaylistContext)
 
@@ -83,7 +85,7 @@ const Room = () => {
       .then((result) => {
         updateQueueId(result.data.queue)
         setRoomDetails(result.data)
-        localStorage.setItem("admin", result.data.createdBy)
+        localStorage.setItem('admin', result.data.createdBy)
       })
       .then((res) => {
         socket.emit('join_room', { roomId: roomId, username: username })
@@ -93,6 +95,38 @@ const Room = () => {
         setError(error.message)
       })
   }, [])
+
+  function handleLeave() {
+    let myHeaders = new Headers()
+    myHeaders.append('auth-token', token)
+    myHeaders.append('Content-Type', 'application/json')
+
+    let requestOptions = {
+      method: 'PATCH',
+      headers: myHeaders,
+      body: JSON.stringify({
+        username: username,
+        roomId: roomId
+      })
+    }
+
+    fetch('http://localhost:1337/api/dashboard/leave', requestOptions)
+      .then((res) => {
+        if (!res.ok)
+          return res.json().then((data) => {
+            throw new Error(data.error)
+          })
+        else return res.json()
+      })
+      .then((res) => {
+        console.log(res)
+        navigate(`/dashboard`)
+      })
+      .catch((error) => {
+        // setError(error.message)
+        console.log(error)
+      })
+  }
 
   return (
     <RoomWrapper>
@@ -105,10 +139,10 @@ const Room = () => {
               <RoomCreator>{`Made by ${roomDetails.createdBy}`}</RoomCreator>
               <RoomId>{`Room Id: ${roomDetails.roomId}`}</RoomId>
             </RoomNameWrapper>
-            <Button>Leave</Button>
+            <Button onClick={handleLeave}>Leave</Button>
           </RoomHeader>
           {joinQueue && playlistData.length && (
-            <div style={{ marginLeft: '150px', marginTop: '50px' }}>
+            <div style={{ marginLeft: '150px', marginTop: '50px' }} className="youtube_container">
               <YouTubeVideo roomId={roomId} />
             </div>
           )}

@@ -3,7 +3,6 @@ import { Label, Switch, Input, ToggleSpan } from '../styles/ToggleButton.styles'
 const Toggle = ({ label, isPublic, setIsPublic }) => {
   const handleChange = (e) => {
     setIsPublic(e.target.checked)
-    console.log(isPublic)
   }
 
   return (

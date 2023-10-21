@@ -10,6 +10,12 @@ export const RoomCard = styled.div`
   margin-right: 20px;
   margin-bottom: 20px;
   min-width: 31%;
+  
+  @media (max-width: 539px) {
+    & {
+      margin-right: 0px;
+    }
+  }
 `
 
 export const CardHeader = styled.div`

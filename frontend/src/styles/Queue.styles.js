@@ -11,6 +11,10 @@ export const QueueWrapper = styled.div`
   padding: 2em 3em;
   overflow-y: auto;
 
+  & .search_bar {
+    display: flex;
+  }
+
   /* Firefox */
   & {
     scrollbar-width: auto;
@@ -31,12 +35,60 @@ export const QueueWrapper = styled.div`
     border-radius: 11px;
     border: 3px solid black;
   }
+
+  @media (max-width: 768px) {
+    & .queueDiv {
+      padding: 0 !important;
+    }
+
+    & .songsDiv_wrapper {
+      padding: 1em 0 !important;
+    }
+  }
+
+  @media (max-width: 539px){
+    & {
+      min-width: 100%;
+      padding: 1em;
+    }
+
+    & .queueDiv {
+      padding: 0 !important;
+      margin: 50px;
+    }
+
+    & .cta {
+      padding: 5px !important;
+      width: 150px !important;
+    }
+
+    & .search_wrapper {
+      flex-direction: column;
+      align-items: flex-start !important;
+    }
+
+    & .search_bar {
+      display: flex;
+      margin-top: 30px;
+    }
+
+    & .songsDiv_wrapper {
+      padding: 1em 0 !important;
+    }
+  }
 `
 
 export const QueueCta = styled(Button)`
   font-size: 14px;
   width: 150px;
   margin-right: 100px;
+
+  @media (max-width: 768px) {
+    & {
+      width: 100px;
+      font-size: 12px;
+    }
+  }
 `
 
 export const SearchBar = styled.input`
@@ -50,4 +102,12 @@ export const SearchBar = styled.input`
   padding: 1.5em;
   font-size: 16px;
   box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    width: 15rem;
+    height: 30px;
+    padding: 1.2em;
+    border-radius: 10px;
+    margin-left: -40px;
+  }
 `

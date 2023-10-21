@@ -5,6 +5,12 @@ export const Label = styled.label`
   align-items: center;
   gap: 10px;
   cursor: pointer;
+
+  @media (max-width: 539px) {
+    & {
+      gap: 3px;
+    }
+  }
 `
 
 export const Switch = styled.div`
@@ -27,6 +33,18 @@ export const Switch = styled.div`
     left: 4px;
     background: white;
     transform: translate(0, -50%);
+  }
+
+  @media (max-width: 539px) {
+    &, &:before {
+      width: 38px;
+      height: 18px;
+    }
+
+    &:before{
+      left: -14px;
+      width: 20px;
+    }
   }
 `
 

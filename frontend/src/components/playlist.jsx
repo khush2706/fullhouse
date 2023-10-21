@@ -17,13 +17,14 @@ import { SelectedThumbsDown } from '../../resources/images/svgs/selectedThumbsDo
 import { SelectedThumbsUp } from '../../resources/images/svgs/selectedThumbsUp'
 import { SocketContext } from '../contexts/socket'
 import Queue from './queue'
+import PlaylistContext from '../contexts/playlist'
 
 const Playlist = ({ roomId }) => {
   const [upVoted, setUpVoted] = useState(false)
   const [downVoted, setDownVoted] = useState(false)
-  const [playing, setPlaying] = useState(false)
   const [queueOpen, setQueueOpen] = useState(true)
   const socket = useContext(SocketContext)
+  const { playlistData, updatePlaylistData, playing } = useContext(PlaylistContext)
 
   return (
     <>
@@ -32,10 +33,12 @@ const Playlist = ({ roomId }) => {
         <SongIdentifierWrapper>
           <Music />
           <div>
-            <SongName>Perfect</SongName>
-            <SingerName>Ed Sheeran</SingerName>
+            <SongName>
+              <div className='song_name'>{playlistData[0]?.songTitle}</div>
+            </SongName>
+            <SingerName>{playlistData[0]?.channelName}</SingerName>
           </div>
-          <div
+          {/* <div
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -64,19 +67,19 @@ const Playlist = ({ roomId }) => {
             ) : (
               <SelectedThumbsDown />
             )}
-          </div>
+          </div> */}
         </SongIdentifierWrapper>
         {!playing ? (
           <PlayButton
             handleClick={() => {
-              setPlaying(true)
+              updatePlaylistData().setIsPlaying(true)
               socket.emit('play_video', { roomId: roomId })
             }}
           />
         ) : (
           <PauseButton
             handleClick={() => {
-              setPlaying(false)
+              updatePlaylistData().setIsPlaying(false)
               socket.emit('pause_video', { roomId: roomId })
             }}
           />
@@ -86,8 +89,7 @@ const Playlist = ({ roomId }) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center'
-          }}
-        >
+          }}>
           <PlaylistIcon handleClick={() => setQueueOpen(!queueOpen)} />
           <SoundIcon />
           <ProgressBar type="range" min="0" max="100" default="0"></ProgressBar>

@@ -20,6 +20,12 @@ export const FormTitle = styled.h1`
   font-weight: 500;
   color: white;
   letter-spacing: 0.1em;
+
+  @media (max-width: 539px){
+    & {
+      font-size: 28px;
+    }
+  }
 `
 
 export const FormColumn = styled.div`
@@ -37,6 +43,14 @@ export const FormColumn = styled.div`
   flex-direction: column;
   overflow: hidden;
   z-index: 2;
+
+  @media (max-width: 539px){
+    & {
+      width: 80%;
+      padding: 30px 15px;
+      min-height: 50%;
+    }
+  }
 `
 
 export const FormWrapper = styled.form`
@@ -116,4 +130,14 @@ export const FormSubText = styled.p`
   margin-top: 50px;
   font-size: 18px;
   text-align: center;
+
+  & a:visited{
+    color: #17d217;
+  }
+
+  @media (max-width: 539px){
+    & {
+      font-size: 16px;
+    }
+  }
 `
