@@ -5,7 +5,9 @@
 
 🚀 **Inspiration:** FullHouse is the result of our passion to recreate and enhance the shared music experience. It's about revitalizing the heartwarming social aspect of online communities, making digital spaces feel just as warm and inviting as physical ones.
 
-Join us to explore FullHouse's features, installation steps, underlying technologies, and how you can contribute. Let's bring back the joy of shared music and social interaction in the virtual realm through FullHouse.
+### Demo
+
+https://github.com/khush2706/fullhouse/assets/86849664/291de8f8-b57f-418b-ace1-2a249b74038a
 
 ### Features
 
@@ -54,10 +56,6 @@ Join us to explore FullHouse's features, installation steps, underlying technolo
 - **Socket.IO:** Real-time room functionality is achieved through the use of Socket.IO, enabling seamless synchronization of music and chat.
 
 - **Redis Integration:** The project incorporates Redis for faster data access and optimized read/write operations, contributing to a smooth and responsive user experience.
-
-### Demo
-
-https://github.com/khush2706/fullhouse/assets/86849664/291de8f8-b57f-418b-ace1-2a249b74038a
 
 ### Challenges 
 
