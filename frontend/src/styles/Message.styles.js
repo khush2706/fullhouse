@@ -18,7 +18,9 @@ export const MessageBox = styled.div`
 
   @media (max-width: 768px){
     & {
-      display: none;
+      bottom: 80px;
+      width: 60%;
+      height: 38%;
     }
   }
 `
@@ -62,9 +64,24 @@ export const MessageInput = styled.input`
     font-weight: 100;
     font-size: 1rem;
   }
+
+  @media (max-width: 768px){
+    & {
+      height: 40px;
+      position: relative;
+      bottom: 25px;
+    }
+  }
 `
 export const SendMessage = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 768px){
+    & svg{
+      position: relative;
+      bottom: 25px;
+    }
+  }
 `
